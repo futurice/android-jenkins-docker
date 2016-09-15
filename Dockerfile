@@ -13,7 +13,7 @@ ENV GRADLE_ZIP_URL https://services.gradle.org/distributions/$GRADLE_ZIP
 
 ENV PATH $PATH:$ANDROID_HOME/tools
 ENV PATH $PATH:$ANDROID_HOME/platform-tools
-ENV PATH $PATH:/usr/share/gradle-3.0/bin
+ENV PATH $PATH:/opt/gradle-3.0/bin
 
 USER root
 
@@ -23,17 +23,14 @@ RUN apt-get update && \
 	apt-get install software-properties-common python-software-properties unzip -y
 
 # Install gradle
-RUN wget $GRADLE_ZIP_URL && \
-	unzip $GRADLE_ZIP -d /usr/share/ && \
-	rm $GRADLE_ZIP
+ADD $GRADLE_ZIP_URL /opt/
+RUN unzip /opt/$GRADLE_ZIP -d /opt/ && \
+	rm /opt/$GRADLE_ZIP
 
 # Install Android SDK
-RUN mkdir -p /opt && \
-	wget --progress=dot:giga $ANDROID_SDK_ZIP_URL && \
-	mv $ANDROID_SDK_ZIP /opt/ && \
-	cd /opt && \
-	tar xzvf ./$ANDROID_SDK_ZIP && \ 
-	rm $ANDROID_SDK_ZIP
+ADD $ANDROID_SDK_ZIP_URL /opt/
+RUN tar xzvf /opt/$ANDROID_SDK_ZIP -C /opt/ && \
+	rm /opt/$ANDROID_SDK_ZIP
 
 # Install required build-tools
 RUN	echo "y" | android update sdk -u -a --filter platform-tools,android-23,build-tools-23.0.3 && \
@@ -51,5 +48,5 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	
 USER jenkins
 
-# Jenkins plugins
+# List desired Jenkins plugins here
 RUN /usr/local/bin/install-plugins.sh git gradle
