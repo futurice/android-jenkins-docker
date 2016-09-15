@@ -13,3 +13,11 @@ Replace ```SOME_HOST_PATH``` with the path to a folder on your host system where
 
 ## Windows tips
 Setting the host path for ```jenkins_home``` is a bit tricky on Windows hosts. First of all, you probably need to share the drive where the folder lives and [this resource explains how](https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c#.7ec1d330n). Then, you need to provide the path with forward slashes, for example ```c:/Users/myuser/android_jenkins_home:/var/jenkins_home```
+
+# Modifying the image
+Just modify the Dockerfile in case you want to modify the environment, for example
+* Android SDK version
+* Buildtools version
+* Jenkins plugins
+
+PRs are welcome for example for simplifying the mechanism for installing multiple buildtools versions.
