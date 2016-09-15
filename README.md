@@ -14,15 +14,6 @@ Replace ```SOME_HOST_PATH``` with the path to a folder on your host system where
 ## Windows tips
 Setting the host path for ```jenkins_home``` is a bit tricky on Windows hosts. First of all, you probably need to share the drive where the folder lives and [this resource explains how](https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c#.7ec1d330n). Then, you need to provide the path with forward slashes, for example ```c:/Users/myuser/android_jenkins_home:/var/jenkins_home```
 
-# Accessing Jenkins
-When you run the image for the first time without a previous ```jenkins_home``` directory, Jenkins will print the current admin password in the terminal. Keep an eye out for this block of text:
->Jenkins initial setup is required. An admin user has been created and a password generated.
->Please use the following password to proceed to installation:
->
->[REDACTED]
->
->This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
-
 # Modifying the image
 Just modify the Dockerfile in case you want to modify the environment, for example
 * Android SDK version
